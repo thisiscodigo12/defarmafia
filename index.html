@@ -1,6 +1,744 @@
 cat /mnt/user-data/outputs/defarmafia_light.html
-{
-  "returncode" : 0,
-  "stdout" : "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"\/>\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\"\/>\n  <title>defarmafia — Archive<\/title>\n  <link href=\"https:\/\/fonts.googleapis.com\/css2?family=UnifrakturMaguntia&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@200;300;400;500;600;700&display=swap\" rel=\"stylesheet\"\/>\n  <style>\n    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}\n    :root{\n      --bk:#050505;--wh:#e2e2e2;--off:#0f0f0f;--gray:#333;--mid:#555;--lt:#888;\n      --gothic:'UnifrakturMaguntia',cursive;\n      --mono:'Courier Prime',monospace;\n      --sans:'Oswald',sans-serif;\n    }\n    html{scroll-behavior:smooth}\n    body{background:var(--bk);color:var(--wh);font-family:var(--mono);overflow-x:hidden;cursor:none}\n    body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:0.25;\n      background-image:url(\"data:image\/svg+xml,%3Csvg xmlns='http:\/\/www.w3.org\/2000\/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'\/%3E%3C\/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'\/%3E%3C\/svg%3E\")}\n\n    .cur{width:7px;height:7px;background:var(--wh);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference;transition:width .18s,height .18s}\n    .cur-ring{width:26px;height:26px;border:1px solid rgba(255,255,255,.2);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transition:width .22s,height .22s}\n\n    \/* BANNER *\/\n    .banner{position:fixed;top:0;left:0;right:0;height:36px;background:#080808;border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;z-index:700;display:flex;align-items:center}\n    .banner-track{display:flex;align-items:center;white-space:nowrap;animation:slide 20s linear infinite;flex-shrink:0}\n    .bw{font-family:var(--gothic);font-size:1.05rem;color:rgba(226,226,226,.7);letter-spacing:.06em;padding:0 2rem;flex-shrink:0}\n    .bd{color:rgba(255,255,255,.18);font-size:.35rem;flex-shrink:0}\n\n    \/* NAV *\/\n    nav{position:fixed;top:36px;left:0;right:0;z-index:600;display:flex;justify-content:space-between;align-items:center;padding:.85rem 2.5rem;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(5,5,5,.95);backdrop-filter:blur(12px)}\n    .nav-logo{font-family:var(--gothic);font-size:1.35rem;color:var(--wh);text-decoration:none}\n    .nav-links{display:flex;gap:2rem;list-style:none}\n    .nav-links a{font-family:var(--sans);font-size:.56rem;font-weight:300;letter-spacing:.38em;text-transform:uppercase;color:var(--lt);text-decoration:none;transition:color .2s}\n    .nav-links a:hover{color:var(--wh)}\n    .nav-right{display:flex;align-items:center;gap:1.5rem}\n    .nav-ig{font-family:var(--mono);font-size:.5rem;color:var(--mid);letter-spacing:.12em;text-decoration:none;transition:color .2s}\n    .nav-ig:hover{color:var(--wh)}\n    .nav-ig::before{content:'↗ '}\n\n    \/* 3 DOTS *\/\n    .dots-btn{background:none;border:none;cursor:none;display:flex;flex-direction:column;gap:4px;padding:4px;opacity:.6;transition:opacity .2s}\n    .dots-btn:hover{opacity:1}\n    .dots-btn span{width:4px;height:4px;background:var(--wh);border-radius:50%;display:block}\n\n    .archive-menu{position:fixed;top:82px;right:2.5rem;background:#0d0d0d;border:1px solid rgba(255,255,255,.08);z-index:800;min-width:260px;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.8)}\n    .archive-menu.open{display:flex}\n    .am-title{font-family:var(--sans);font-size:.46rem;font-weight:300;letter-spacing:.42em;text-transform:uppercase;color:var(--mid);padding:.85rem 1.2rem .6rem;border-bottom:1px solid rgba(255,255,255,.05)}\n    .archive-menu a{font-family:var(--mono);font-size:.63rem;color:var(--lt);text-decoration:none;padding:.72rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:.8rem;transition:color .2s,background .2s;letter-spacing:.04em}\n    .archive-menu a:last-child{border-bottom:none}\n    .archive-menu a:hover{color:var(--wh);background:rgba(255,255,255,.03)}\n    .am-dot{width:4px;height:4px;border-radius:50%;background:var(--gray);flex-shrink:0;transition:background .2s}\n    .archive-menu a:hover .am-dot{background:var(--wh)}\n\n    \/* HERO *\/\n    .hero{min-height:100vh;padding-top:100px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}\n    .hero-glyph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0;font-family:var(--gothic);font-size:42vw;color:rgba(255,255,255,.012);user-select:none;line-height:1}\n    .hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 3rem 4rem 2.5rem;position:relative;z-index:2}\n    .hero-tag{font-family:var(--sans);font-size:.5rem;font-weight:300;letter-spacing:.45em;text-transform:uppercase;color:var(--lt);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem}\n    .hero-tag::before{content:'';width:20px;height:1px;background:var(--gray);display:block}\n    .hero-title{font-family:var(--gothic);font-size:clamp(3rem,6.5vw,6rem);line-height:.95;margin-bottom:1rem;opacity:0;animation:rise .9s ease forwards .2s}\n    .hero-sub{font-family:var(--sans);font-size:clamp(.75rem,1.4vw,1.05rem);font-weight:200;letter-spacing:.38em;text-transform:uppercase;color:var(--lt);margin-bottom:1.8rem;opacity:0;animation:rise .9s ease forwards .4s}\n    .hero-desc{font-family:var(--mono);font-style:italic;font-size:.65rem;color:var(--lt);line-height:1.9;margin-bottom:2rem;max-width:320px;opacity:0;animation:rise .9s ease forwards .6s}\n    .hero-meta{display:flex;gap:2rem;align-items:center;margin-bottom:2.2rem;opacity:0;animation:rise .9s ease forwards .7s}\n    .hm-val{font-family:var(--sans);font-size:.65rem;font-weight:300;letter-spacing:.2em;color:var(--wh)}\n    .hm-label{font-family:var(--mono);font-size:.42rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}\n    .hm-div{width:1px;height:28px;background:var(--gray)}\n    .hero-ctas{display:flex;gap:1.4rem;align-items:center;opacity:0;animation:rise .9s ease forwards .85s}\n    .btn-main{font-family:var(--sans);font-size:.56rem;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--bk);background:var(--wh);padding:.8rem 1.8rem;text-decoration:none;transition:background .2s,transform .15s}\n    .btn-main:hover{background:#b0b0b0;transform:translateY(-1px)}\n    .btn-line{font-family:var(--sans);font-size:.56rem;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:var(--lt);text-decoration:none;border-bottom:1px solid var(--gray);padding-bottom:2px;transition:color .2s,border-color .2s}\n    .btn-line:hover{color:var(--wh);border-color:var(--wh)}\n    .hero-right{position:relative;overflow:hidden;z-index:2}\n    .hero-right img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:contrast(1.04) brightness(.9);opacity:0;animation:fadein 1.2s ease forwards .3s}\n    .hero-ref{position:absolute;bottom:1.8rem;left:1.5rem;font-family:var(--mono);font-size:.44rem;color:rgba(255,255,255,.3);letter-spacing:.22em;text-transform:uppercase;writing-mode:vertical-rl}\n    .hero-ctr{position:absolute;top:1.5rem;right:1.5rem;font-family:var(--mono);font-size:.44rem;color:var(--gray);letter-spacing:.15em;text-align:right;line-height:1.7;z-index:3}\n\n    \/* TICKER *\/\n    .ticker{overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:.8rem 0;background:#0b0b0b}\n    .ticker-track{display:flex;white-space:nowrap;animation:slide 28s linear infinite}\n    .ti{font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lt);flex-shrink:0;display:flex;align-items:center;gap:3rem;padding:0 3rem}\n    .ts{color:var(--gray);font-size:.36rem}\n\n    \/* SECTION HEADER *\/\n    .sec-hd{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:1.2rem;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:2.5rem}\n    .sec-title{font-family:var(--gothic);font-size:2.3rem;letter-spacing:.02em}\n    .sec-sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.22em;color:var(--mid);text-transform:uppercase}\n\n    \/* SHOP *\/\n    .shop{padding:5rem 2.5rem;border-top:1px solid rgba(255,255,255,.06)}\n    .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}\n    .shop-card{background:#0a0a0a;border:1px solid rgba(255,255,255,.04);overflow:hidden;cursor:none;transition:border-color .3s}\n    .shop-card:hover{border-color:rgba(255,255,255,.11)}\n    .card-img{width:100%;aspect-ratio:1\/1;overflow:hidden;position:relative;background:#0d0d0d;display:flex;align-items:center;justify-content:center}\n    .card-img img{width:100%;height:100%;object-fit:contain;object-position:center;padding:1rem;display:block;filter:grayscale(8%) contrast(1.05);transition:transform .6s cubic-bezier(.25,.46,.45,.94),filter .4s}\n    .shop-card:hover .card-img img{transform:scale(1.04);filter:grayscale(0%) contrast(1.07)}\n    .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.92) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1.2rem}\n    .shop-card:hover .card-overlay{opacity:1}\n    .card-cta{font-family:var(--sans);font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--wh);border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}\n    .card-badge{position:absolute;top:.8rem;left:.8rem;font-family:var(--mono);font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--wh);background:rgba(12,12,12,.9);border:1px solid rgba(255,255,255,.09);padding:.2rem .55rem;backdrop-filter:blur(6px)}\n    .card-info{padding:.9rem 1rem 1rem;border-bottom:1px solid rgba(255,255,255,.04)}\n    .card-ref{font-family:var(--mono);font-size:.45rem;color:var(--mid);letter-spacing:.15em;margin-bottom:.25rem}\n    .card-name{font-family:var(--sans);font-size:.82rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}\n    .card-avail{font-family:var(--mono);font-size:.52rem;color:var(--lt)}\n\n    \/* ARCHIVE SECTIONS *\/\n    .archive-sec{padding:5rem 2.5rem;border-top:1px solid rgba(255,255,255,.06)}\n    .archive-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}\n    .archive-grid.col3{grid-template-columns:repeat(3,1fr)}\n\n    .arc-card{background:#080808;border:1px solid rgba(255,255,255,.04);overflow:hidden;cursor:none;transition:border-color .3s;position:relative}\n    .arc-card:hover{border-color:rgba(255,255,255,.1)}\n    .arc-img{width:100%;aspect-ratio:1\/1;overflow:hidden;position:relative;background:#0a0a0a;display:flex;align-items:center;justify-content:center}\n    .arc-img img{width:100%;height:100%;object-fit:contain;object-position:center;padding:1.2rem;display:block;filter:grayscale(15%) contrast(1.04);transition:transform .5s ease,filter .4s}\n    .arc-card:hover .arc-img img{transform:scale(1.03);filter:grayscale(0%)}\n    .arc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.9) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1rem}\n    .arc-card:hover .arc-overlay{opacity:1}\n    .arc-cta{font-family:var(--sans);font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:var(--wh);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:2px}\n    .arc-brand-tag{position:absolute;top:.7rem;left:.7rem;font-family:var(--mono);font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--wh);background:rgba(10,10,10,.9);border:1px solid rgba(255,255,255,.08);padding:.18rem .5rem;backdrop-filter:blur(4px)}\n    .arc-info{padding:.8rem .9rem .9rem;border-bottom:1px solid rgba(255,255,255,.04)}\n    .arc-brand{font-family:var(--mono);font-size:.42rem;color:var(--mid);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.2rem}\n    .arc-name{font-family:var(--sans);font-size:.78rem;font-weight:300;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.18rem}\n    .arc-detail{font-family:var(--mono);font-size:.48rem;color:var(--lt)}\n    .arc-ph{width:100%;aspect-ratio:1\/1;display:flex;align-items:center;justify-content:center;font-family:var(--gothic);font-size:3rem;color:rgba(255,255,255,.04);background:#080808}\n\n    \/* MARQUEE *\/\n    .gmarquee{overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:.6rem 0;background:#060606}\n    .gm-track{display:flex;white-space:nowrap;animation:slide 30s linear infinite}\n    .gm-item{font-family:var(--gothic);font-size:3rem;color:rgba(255,255,255,.05);padding:0 2.5rem;flex-shrink:0}\n    .gm-item.hi{color:rgba(255,255,255,.14)}\n\n    \/* WORLDWIDE *\/\n    .worldwide{padding:2.5rem 2.5rem;background:#070707;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;gap:2rem}\n    .ww-left{display:flex;align-items:center;gap:1.5rem}\n    .ww-dot{width:7px;height:7px;background:var(--wh);border-radius:50%;animation:pulse 2s ease infinite}\n    .ww-label{font-family:var(--sans);font-size:.52rem;font-weight:300;letter-spacing:.4em;text-transform:uppercase;color:var(--lt)}\n    .ww-cities{font-family:var(--mono);font-size:.5rem;color:var(--mid);letter-spacing:.12em}\n    .ww-text{font-family:var(--gothic);font-size:1.4rem;color:rgba(255,255,255,.5)}\n\n    \/* INSTAGRAM *\/\n    .ig-section{padding:5rem 2.5rem;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;gap:4rem}\n    .ig-eyebrow{font-family:var(--sans);font-size:.5rem;font-weight:300;letter-spacing:.45em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem}\n    .ig-handle{font-family:var(--gothic);font-size:clamp(2rem,4vw,3.8rem);line-height:1;margin-bottom:.8rem}\n    .ig-desc{font-family:var(--mono);font-size:.62rem;color:var(--lt);font-style:italic;margin-bottom:2rem}\n    .ig-btn{display:inline-flex;align-items:center;gap:.8rem;font-family:var(--sans);font-size:.56rem;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--bk);background:var(--wh);padding:.85rem 2rem;text-decoration:none;transition:background .2s,transform .15s}\n    .ig-btn:hover{background:#b0b0b0;transform:translateY(-1px)}\n    .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;flex:0 0 320px}\n    .ig-tile{aspect-ratio:1;overflow:hidden;background:#0d0d0d;display:flex;align-items:center;justify-content:center}\n    .ig-tile img{width:100%;height:100%;object-fit:contain;padding:.5rem;display:block;filter:grayscale(15%);transition:filter .3s,transform .4s}\n    .ig-tile:hover img{filter:grayscale(0%);transform:scale(1.04)}\n    .ig-ph{font-family:var(--gothic);font-size:1.8rem;color:rgba(255,255,255,.05)}\n\n    \/* NEWSLETTER *\/\n    .nl{padding:7rem 2.5rem;text-align:center;position:relative;overflow:hidden;background:#060606;border-top:1px solid rgba(255,255,255,.05)}\n    .nl::before{content:'F';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--gothic);font-size:40vw;color:rgba(255,255,255,.011);pointer-events:none;line-height:1}\n    .nl-label{font-family:var(--sans);font-size:.5rem;font-weight:300;letter-spacing:.5em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem}\n    .nl-heading{font-family:var(--gothic);font-size:clamp(2.4rem,4.5vw,4.5rem);margin-bottom:.5rem}\n    .nl-sub{font-family:var(--mono);font-style:italic;font-size:.6rem;color:var(--lt);margin-bottom:2.8rem}\n    .nl-form{display:flex;max-width:380px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,.15)}\n    .nl-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:.65rem;color:var(--wh);padding:.75rem 0;letter-spacing:.1em}\n    .nl-input::placeholder{color:var(--mid)}\n    .nl-btn{background:transparent;border:none;cursor:none;font-family:var(--sans);font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--wh);padding:0 0 0 1rem;transition:color .2s}\n\n    \/* FOOTER *\/\n    footer{background:#020202;padding:4rem 2.5rem 1.5rem}\n    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.05)}\n    .f-logo{font-family:var(--gothic);font-size:2.2rem;margin-bottom:.4rem}\n    .f-sub{font-family:var(--sans);font-size:.46rem;font-weight:300;letter-spacing:.32em;text-transform:uppercase;color:var(--mid);margin-bottom:1.2rem}\n    .f-desc{font-family:var(--mono);font-size:.56rem;line-height:1.95;color:var(--mid);font-style:italic;max-width:210px}\n    .f-ww{font-family:var(--sans);font-size:.44rem;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);margin-top:1rem}\n    .f-col-title{font-family:var(--sans);font-size:.46rem;font-weight:400;letter-spacing:.42em;text-transform:uppercase;color:var(--lt);margin-bottom:1.4rem}\n    .f-links{list-style:none;display:flex;flex-direction:column;gap:.75rem}\n    .f-links a{font-family:var(--mono);font-size:.6rem;color:var(--mid);text-decoration:none;letter-spacing:.06em;transition:color .2s}\n    .f-links a:hover{color:var(--wh)}\n    .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.46rem;color:#1e1e1e;letter-spacing:.15em}\n\n    .reveal{opacity:0;transform:translateY(14px);transition:opacity .75s ease,transform .75s ease}\n    .reveal.visible{opacity:1;transform:none}\n\n    @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}\n    @keyframes fadein{from{opacity:0}to{opacity:1}}\n    @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}\n    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}\n\n    @media(max-width:860px){\n      .hero{grid-template-columns:1fr}.hero-right{height:60vw}\n      .shop-grid,.archive-grid,.archive-grid.col3{grid-template-columns:1fr 1fr}\n      .ig-section{flex-direction:column;align-items:flex-start}\n      .ig-grid{flex:none;width:100%}\n      .footer-grid{grid-template-columns:1fr 1fr}\n      .nav-links{display:none}\n      .worldwide{flex-direction:column;align-items:flex-start;gap:1rem}\n    }\n  <\/style>\n<\/head>\n<body>\n\n<div class=\"cur\" id=\"cur\"><\/div>\n<div class=\"cur-ring\" id=\"curRing\"><\/div>\n\n<!-- ARCHIVE DROPDOWN -->\n<div class=\"archive-menu\" id=\"archiveMenu\">\n  <p class=\"am-title\">\/\/ Archives<\/p>\n  <a href=\"#tienda\"><span class=\"am-dot\"><\/span>Tienda — Drops disponibles<\/a>\n  <a href=\"#proximos\"><span class=\"am-dot\"><\/span>Próximos Drops — Unreleased<\/a>\n  <a href=\"#archive-defarmafia\"><span class=\"am-dot\"><\/span>defarmafia Archive<\/a>\n  <a href=\"#archive-colabs\"><span class=\"am-dot\"><\/span>Colabs &amp; Friends Archive<\/a>\n  <a href=\"#archive-otras\"><span class=\"am-dot\"><\/span>Otras Marcas Archive<\/a>\n<\/div>\n\n<!-- BANNER -->\n<div class=\"banner\">\n  <div class=\"banner-track\">\n    <span class=\"bw\">defarmafia<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">\\bendecid2s\/<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">Archive<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">SS26<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">We Have Always Been<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">Worldwide<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">defarmafia<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">\\bendecid2s\/<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">Archive<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">SS26<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">We Have Always Been<\/span><span class=\"bd\">✦<\/span>\n    <span class=\"bw\">Worldwide<\/span><span class=\"bd\">✦<\/span>\n  <\/div>\n<\/div>\n\n<!-- NAV -->\n<nav>\n  <a href=\"#\" class=\"nav-logo\">defarmafia<\/a>\n  <ul class=\"nav-links\">\n    <li><a href=\"#tienda\">Tienda<\/a><\/li>\n    <li><a href=\"#archive-defarmafia\">Archive<\/a><\/li>\n    <li><a href=\"#ig\">Instagram<\/a><\/li>\n    <li><a href=\"#nl\">Contacto<\/a><\/li>\n  <\/ul>\n  <div class=\"nav-right\">\n    <a href=\"https:\/\/instagram.com\/defarmafia\" target=\"_blank\" class=\"nav-ig\">@defarmafia<\/a>\n    <button class=\"dots-btn\" id=\"dotsBtn\">\n      <span><\/span><span><\/span><span><\/span>\n    <\/button>\n  <\/div>\n<\/nav>\n\n<!-- HERO -->\n<section class=\"hero\">\n  <div class=\"hero-glyph\">F<\/div>\n  <div class=\"hero-left\">\n    <p class=\"hero-tag\">defarmafia · Archive SS26<\/p>\n    <h1 class=\"hero-title\">\\bendecid2s\/<\/h1>\n    <p class=\"hero-sub\">We have always been.<\/p>\n    <p class=\"hero-desc\">\"Archivando lo que nunca debió desaparecer.<br>Ropa hecha desde la fe, construida para los que ya saben.\"<\/p>\n    <div class=\"hero-meta\">\n      <div><div class=\"hm-val\">2023<\/div><div class=\"hm-label\">Founded<\/div><\/div>\n      <div class=\"hm-div\"><\/div>\n      <div><div class=\"hm-val\">Worldwide<\/div><div class=\"hm-label\">Based<\/div><\/div>\n      <div class=\"hm-div\"><\/div>\n      <div><div class=\"hm-val\">Ltd.<\/div><div class=\"hm-label\">Edition<\/div><\/div>\n    <\/div>\n    <div class=\"hero-ctas\">\n      <a href=\"#tienda\" class=\"btn-main\">Ver Tienda<\/a>\n      <a href=\"#archive-otras\" class=\"btn-line\">Archive →<\/a>\n    <\/div>\n  <\/div>\n  <div class=\"hero-right\">\n    <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">We Have Always Been<\/div>\n    <span class=\"hero-ref\">REF. WHA-001 — Hoodie \/ Black<\/span>\n    <div class=\"hero-ctr\">SS26 \/ Drop 001<br>Edición Limitada<\/div>\n  <\/div>\n<\/section>\n\n<!-- TICKER -->\n<div class=\"ticker\">\n  <div class=\"ticker-track\">\n    <div class=\"ti\">defarmafia <span class=\"ts\">✦<\/span> we have always been <span class=\"ts\">✦<\/span> \\bendecid2s\/ <span class=\"ts\">✦<\/span> archive SS26 <span class=\"ts\">✦<\/span> vitamin fé <span class=\"ts\">✦<\/span> worldwide <span class=\"ts\">✦<\/span> edición limitada <span class=\"ts\">✦<\/span> @defarmafia <span class=\"ts\">✦<\/span> defarmafia <span class=\"ts\">✦<\/span> we have always been <span class=\"ts\">✦<\/span> \\bendecid2s\/ <span class=\"ts\">✦<\/span> archive SS26 <span class=\"ts\">✦<\/span> vitamin fé <span class=\"ts\">✦<\/span> worldwide <span class=\"ts\">✦<\/span> edición limitada <span class=\"ts\">✦<\/span> @defarmafia <span class=\"ts\">✦<\/span><\/div>\n  <\/div>\n<\/div>\n\n<!-- ═══ TIENDA ═══ -->\n<section class=\"shop\" id=\"tienda\">\n  <div class=\"sec-hd reveal\">\n    <h2 class=\"sec-title\">Tienda<\/h2>\n    <span class=\"sec-sub\">Drops disponibles · SS26<\/span>\n  <\/div>\n  <div class=\"shop-grid\">\n    <div class=\"shop-card reveal\">\n      <div class=\"card-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">We Have Always Been Hoodie<\/div>\n        <span class=\"card-badge\">Disponible<\/span>\n        <div class=\"card-overlay\"><span class=\"card-cta\">Ver pieza →<\/span><\/div>\n      <\/div>\n      <div class=\"card-info\">\n        <p class=\"card-ref\">REF. 001 · defarmafia · SS26<\/p>\n        <p class=\"card-name\">We Have Always Been — Hoodie<\/p>\n        <p class=\"card-avail\">Edición limitada · Disponible<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"shop-card reveal\">\n      <div class=\"card-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Vitamin Fé Hoodie<\/div>\n        <span class=\"card-badge\">Disponible<\/span>\n        <div class=\"card-overlay\"><span class=\"card-cta\">Ver pieza →<\/span><\/div>\n      <\/div>\n      <div class=\"card-info\">\n        <p class=\"card-ref\">REF. 002 · defarmafia · SS26<\/p>\n        <p class=\"card-name\">Vitamin Fé — Hoodie<\/p>\n        <p class=\"card-avail\">Edición limitada · Disponible<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"shop-card reveal\">\n      <div class=\"card-img\"><div class=\"arc-ph\">\\F\/<\/div>\n        <span class=\"card-badge\" style=\"color:#444;border-color:rgba(255,255,255,.05)\">Próximo<\/span>\n        <div class=\"card-overlay\"><span class=\"card-cta\">Notificarme →<\/span><\/div>\n      <\/div>\n      <div class=\"card-info\">\n        <p class=\"card-ref\">REF. 003 · defarmafia · SS26<\/p>\n        <p class=\"card-name\">Drop 003 — Por Revelar<\/p>\n        <p class=\"card-avail\" style=\"color:#444\">Próximamente<\/p>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/section>\n\n<!-- MARQUEE -->\n<div class=\"gmarquee\">\n  <div class=\"gm-track\">\n    <span class=\"gm-item\">defarmafia<\/span><span class=\"gm-item hi\">\\bendecid2s\/<\/span>\n    <span class=\"gm-item\">Archive<\/span><span class=\"gm-item hi\">We Have Always Been.<\/span>\n    <span class=\"gm-item\">Worldwide<\/span><span class=\"gm-item hi\">SS26<\/span>\n    <span class=\"gm-item\">defarmafia<\/span><span class=\"gm-item hi\">\\bendecid2s\/<\/span>\n    <span class=\"gm-item\">Archive<\/span><span class=\"gm-item hi\">We Have Always Been.<\/span>\n    <span class=\"gm-item\">Worldwide<\/span><span class=\"gm-item hi\">SS26<\/span>\n  <\/div>\n<\/div>\n\n<!-- WORLDWIDE -->\n<div class=\"worldwide\">\n  <div class=\"ww-left\">\n    <div class=\"ww-dot\"><\/div>\n    <span class=\"ww-label\">Based &amp; operating<\/span>\n    <span class=\"ww-cities\">Ciudad de México · Los Angeles · Madrid · Tokyo · Worldwide<\/span>\n  <\/div>\n  <span class=\"ww-text\">Worldwide<\/span>\n<\/div>\n\n<!-- ═══ PRÓXIMOS DROPS ═══ -->\n<section class=\"archive-sec\" id=\"proximos\">\n  <div class=\"sec-hd reveal\">\n    <h2 class=\"sec-title\">Próximos Drops<\/h2>\n    <span class=\"sec-sub\">Unreleased · Nunca sacadas · SS26<\/span>\n  <\/div>\n  <div class=\"archive-grid col3\">\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">defarmafia · Unreleased<\/p>\n        <p class=\"arc-name\">Drop 003 — Sin Título<\/p>\n        <p class=\"arc-detail\">Por revelar · SS26<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">defarmafia · Unreleased<\/p>\n        <p class=\"arc-name\">Próxima Pieza<\/p>\n        <p class=\"arc-detail\">Por revelar · SS26<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">defarmafia · Unreleased<\/p>\n        <p class=\"arc-name\">Próxima Pieza<\/p>\n        <p class=\"arc-detail\">Por revelar · SS26<\/p>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/section>\n\n<!-- ═══ DEFARMAFIA ARCHIVE ═══ -->\n<section class=\"archive-sec\" id=\"archive-defarmafia\">\n  <div class=\"sec-hd reveal\">\n    <h2 class=\"sec-title\">defarmafia Archive<\/h2>\n    <span class=\"sec-sub\">Piezas propias · 2023 — 2026<\/span>\n  <\/div>\n  <div class=\"archive-grid\">\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">We Have Always Been<\/div>\n        <span class=\"arc-brand-tag\">defarmafia<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">defarmafia · SS26<\/p>\n        <p class=\"arc-name\">We Have Always Been — Hoodie<\/p>\n        <p class=\"arc-detail\">Black · Drop 001<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Vitamin Fé<\/div>\n        <span class=\"arc-brand-tag\">defarmafia<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">defarmafia · SS26<\/p>\n        <p class=\"arc-name\">Vitamin Fé — Hoodie<\/p>\n        <p class=\"arc-detail\">Black · Drop 002<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">defarmafia · AW23<\/p>\n        <p class=\"arc-name\">Pieza Fundacional<\/p>\n        <p class=\"arc-detail\">Primer drop · Archive<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">defarmafia · AW23<\/p>\n        <p class=\"arc-name\">Pieza Fundacional II<\/p>\n        <p class=\"arc-detail\">Primer drop · Archive<\/p>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/section>\n\n<!-- ═══ COLABS & FRIENDS ═══ -->\n<section class=\"archive-sec\" id=\"archive-colabs\">\n  <div class=\"sec-hd reveal\">\n    <h2 class=\"sec-title\">Colabs &amp; Friends<\/h2>\n    <span class=\"sec-sub\">Colaboraciones · Archive<\/span>\n  <\/div>\n  <div class=\"archive-grid\">\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Colab · Por anunciar<\/p>\n        <p class=\"arc-name\">Próxima Colaboración<\/p>\n        <p class=\"arc-detail\">Por revelar<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Colab · Por anunciar<\/p>\n        <p class=\"arc-name\">Próxima Colaboración<\/p>\n        <p class=\"arc-detail\">Por revelar<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Colab · Por anunciar<\/p>\n        <p class=\"arc-name\">Próxima Colaboración<\/p>\n        <p class=\"arc-detail\">Por revelar<\/p>\n      <\/div>\n    <\/div>\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\"><div class=\"arc-ph\">\\F\/<\/div><\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Colab · Por anunciar<\/p>\n        <p class=\"arc-name\">Próxima Colaboración<\/p>\n        <p class=\"arc-detail\">Por revelar<\/p>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/section>\n\n<!-- ═══ OTRAS MARCAS ARCHIVE ═══ -->\n<!-- ALL 7 images you sent go here -->\n<section class=\"archive-sec\" id=\"archive-otras\">\n  <div class=\"sec-hd reveal\">\n    <h2 class=\"sec-title\">Otras Marcas<\/h2>\n    <span class=\"sec-sub\">Piezas archivadas · Referencia &amp; Colección<\/span>\n  <\/div>\n  <div class=\"archive-grid\">\n\n    <!-- 1. Scares Studio zip hoodie -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Scares Studio Hoodie<\/div>\n        <span class=\"arc-brand-tag\">Scares Studio<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Scares Studio<\/p>\n        <p class=\"arc-name\">I Need A Lil Vamp Baby — Zip Hoodie<\/p>\n        <p class=\"arc-detail\">Black · Tribal print · Double-zip sleeves<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 2. Jeans full (front + back) -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Jeans Red Stitch Full<\/div>\n        <span class=\"arc-brand-tag\">Archive<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Otra Marca · Archive<\/p>\n        <p class=\"arc-name\">Jeans — Red Stitch Flare<\/p>\n        <p class=\"arc-detail\">Black denim · Red stitching · Embroidery · Frayed hem<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 3. Jeans back detail -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Jeans Red Stitch Back<\/div>\n        <span class=\"arc-brand-tag\">Archive<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Otra Marca · Archive<\/p>\n        <p class=\"arc-name\">Jeans — Detalle Espalda<\/p>\n        <p class=\"arc-detail\">Embroidery back pocket · Destroyed detail<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 4. Jeans front detail -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Jeans Red Stitch Front<\/div>\n        <span class=\"arc-brand-tag\">Archive<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Otra Marca · Archive<\/p>\n        <p class=\"arc-name\">Jeans — Detalle Frente<\/p>\n        <p class=\"arc-detail\">Multi-pocket · Zip detail · Embroidery logo<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 5. Atipical washed zip hoodie -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Atipical Zip Hoodie<\/div>\n        <span class=\"arc-brand-tag\">Atipical<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Atipical · Archive<\/p>\n        <p class=\"arc-name\">Zip Hoodie — Washed Black<\/p>\n        <p class=\"arc-detail\">Washed black · Gothic logo · Distressed hem<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 6. Im Not Your Ex black tee -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Im Not Your Ex Black<\/div>\n        <span class=\"arc-brand-tag\">Archive<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Archive · SS25<\/p>\n        <p class=\"arc-name\">I'm Not Your Ex — Tee Black<\/p>\n        <p class=\"arc-detail\">Black · Bubble print · Patch detail<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 7. Searching 4 Connection hoodie -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\">Searching 4 Connection<\/div>\n        <span class=\"arc-brand-tag\">Archive<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Archive · Colección<\/p>\n        <p class=\"arc-name\">Searching 4 Connection — Zip Hoodie<\/p>\n        <p class=\"arc-detail\">Black · Embroidered text · Made in USA<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 8. Number (N)ine Bondage Parka — photo needed -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div class=\"arc-ph\" style=\"font-size:1.6rem;letter-spacing:.05em\">N9<\/div>\n        <span class=\"arc-brand-tag\">Number (N)ine<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Number (N)ine · Takahiro Miyashita<\/p>\n        <p class=\"arc-name\">Bondage Glovo Parka<\/p>\n        <p class=\"arc-detail\">Black · Multi-zip · Archive piece · Tokyo\/NY<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 9. Guapi x NBA camo cargo — photo needed -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div class=\"arc-ph\" style=\"font-size:1.2rem;letter-spacing:.05em\">NBA<\/div>\n        <span class=\"arc-brand-tag\">Guapi × NBA<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Guapi x @neverbrokeagainllc<\/p>\n        <p class=\"arc-name\">Camo Cargo Pants<\/p>\n        <p class=\"arc-detail\">Realtree camo · Chain hardware · Multi-pocket<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 10. Guapi x NBA camo hoodie — photo needed -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div class=\"arc-ph\" style=\"font-size:1.2rem;letter-spacing:.05em\">NBA<\/div>\n        <span class=\"arc-brand-tag\">Guapi × NBA<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Guapi x @neverbrokeagainllc<\/p>\n        <p class=\"arc-name\">Camo Zip Hoodie<\/p>\n        <p class=\"arc-detail\">Realtree camo · Cross graphic · Harness buckles<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 11. Never hoodie worn — photo needed -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div class=\"arc-ph\">\\F\/<\/div>\n        <span class=\"arc-brand-tag\">Archive<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Archive · Colección<\/p>\n        <p class=\"arc-name\">Never Enough — Hoodie<\/p>\n        <p class=\"arc-detail\">Black · Cartoon graphic · Embroidery<\/p>\n      <\/div>\n    <\/div>\n\n    <!-- 12. Im Not Your Ex white — photo needed -->\n    <div class=\"arc-card reveal\">\n      <div class=\"arc-img\">\n        <div class=\"arc-ph\">\\F\/<\/div>\n        <span class=\"arc-brand-tag\">Archive<\/span>\n        <div class=\"arc-overlay\"><span class=\"arc-cta\">Ver archivo →<\/span><\/div>\n      <\/div>\n      <div class=\"arc-info\">\n        <p class=\"arc-brand\">Archive · SS25<\/p>\n        <p class=\"arc-name\">I'm Not Your Ex — Tee White<\/p>\n        <p class=\"arc-detail\">Cream · Bubble print · Patch detail<\/p>\n      <\/div>\n    <\/div>\n\n  <\/div>\n<\/section>\n\n<!-- INSTAGRAM -->\n<section class=\"ig-section\" id=\"ig\">\n  <div class=\"reveal\">\n    <p class=\"ig-eyebrow\">\/\/ Síguenos<\/p>\n    <h2 class=\"ig-handle\">@defarmafia<\/h2>\n    <p class=\"ig-desc\">Drops, archive, behind the scenes — todo en Instagram.<\/p>\n    <a href=\"https:\/\/instagram.com\/defarmafia\" target=\"_blank\" class=\"ig-btn\">↗ Abrir Instagram<\/a>\n  <\/div>\n  <div class=\"ig-grid reveal\">\n    <div class=\"ig-tile\"><div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\"><\/div><\/div>\n    <div class=\"ig-tile\"><div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\"><\/div><\/div>\n    <div class=\"ig-tile\"><div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\"><\/div><\/div>\n    <div class=\"ig-tile\"><div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\"><\/div><\/div>\n    <div class=\"ig-tile\"><div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\"><\/div><\/div>\n    <div class=\"ig-tile\"><div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;\"><\/div><\/div>\n  <\/div>\n<\/section>\n\n<!-- NEWSLETTER -->\n<section class=\"nl\" id=\"nl\">\n  <p class=\"nl-label\">Únete al archive<\/p>\n  <h2 class=\"nl-heading\">defarmafia<\/h2>\n  <p class=\"nl-sub\">Primero en enterarte. Siempre limitado. Worldwide.<\/p>\n  <div class=\"nl-form\">\n    <input type=\"email\" class=\"nl-input\" placeholder=\"tu@correo.com\"\/>\n    <button class=\"nl-btn\">Entrar →<\/button>\n  <\/div>\n<\/section>\n\n<!-- FOOTER -->\n<footer>\n  <div class=\"footer-grid\">\n    <div>\n      <div class=\"f-logo\">defarmafia<\/div>\n      <div class=\"f-sub\">\\bendecid2s\/ · Archive<\/div>\n      <p class=\"f-desc\">\"Archivando lo que nunca debió desaparecer.\"<br>Ropa coleccionable, edición limitada siempre.<\/p>\n      <p class=\"f-ww\">Based worldwide · Est. 2023<\/p>\n    <\/div>\n    <div>\n      <p class=\"f-col-title\">Archives<\/p>\n      <ul class=\"f-links\">\n        <li><a href=\"#tienda\">Tienda — Drops<\/a><\/li>\n        <li><a href=\"#proximos\">Próximos Drops<\/a><\/li>\n        <li><a href=\"#archive-defarmafia\">defarmafia Archive<\/a><\/li>\n        <li><a href=\"#archive-colabs\">Colabs &amp; Friends<\/a><\/li>\n        <li><a href=\"#archive-otras\">Otras Marcas<\/a><\/li>\n      <\/ul>\n    <\/div>\n    <div>\n      <p class=\"f-col-title\">Contacto<\/p>\n      <ul class=\"f-links\">\n        <li><a href=\"https:\/\/instagram.com\/defarmafia\" target=\"_blank\">Instagram<\/a><\/li>\n        <li><a href=\"https:\/\/instagram.com\/defarmafia\" target=\"_blank\">@defarmafia<\/a><\/li>\n      <\/ul>\n    <\/div>\n    <div>\n      <p class=\"f-col-title\">Info<\/p>\n      <ul class=\"f-links\">\n        <li><a href=\"#\">Sobre defarmafia<\/a><\/li>\n        <li><a href=\"#\">Edición limitada<\/a><\/li>\n        <li><a href=\"#\">Envíos<\/a><\/li>\n        <li><a href=\"#\">Devoluciones<\/a><\/li>\n      <\/ul>\n    <\/div>\n  <\/div>\n  <div class=\"footer-bottom\">\n    <span>© 2026 defarmafia — \\bendecid2s\/ · Todos los derechos reservados<\/span>\n    <span>we have always been. · worldwide<\/span>\n  <\/div>\n<\/footer>\n\n<script>\n  const cur=document.getElementById('cur'),ring=document.getElementById('curRing');\n  let mx=0,my=0,rx=0,ry=0;\n  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});\n  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();\n  document.querySelectorAll('a,button,.shop-card,.arc-card,.ig-tile').forEach(el=>{\n    el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='44px';ring.style.height='44px'});\n    el.addEventListener('mouseleave',()=>{cur.style.width='7px';cur.style.height='7px';ring.style.width='26px';ring.style.height='26px'});\n  });\n  const dotsBtn=document.getElementById('dotsBtn'),menu=document.getElementById('archiveMenu');\n  dotsBtn.addEventListener('click',e=>{e.stopPropagation();menu.classList.toggle('open')});\n  document.addEventListener('click',()=>menu.classList.remove('open'));\n  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));\n  const io=new IntersectionObserver(entries=>{\n    entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*65)});\n  },{threshold:.07});\n  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));\n<\/script>\n<\/body>\n<\/html>",
-  "stderr" : ""
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>defarmafia — Archive</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bk:#050505;--wh:#e2e2e2;--off:#0f0f0f;--gray:#333;--mid:#555;--lt:#888;
+      --gothic:'UnifrakturMaguntia',cursive;
+      --mono:'Courier Prime',monospace;
+      --sans:'Oswald',sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bk);color:var(--wh);font-family:var(--mono);overflow-x:hidden;cursor:none}
+    body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:0.25;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+
+    .cur{width:7px;height:7px;background:var(--wh);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference;transition:width .18s,height .18s}
+    .cur-ring{width:26px;height:26px;border:1px solid rgba(255,255,255,.2);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transition:width .22s,height .22s}
+
+    /* BANNER */
+    .banner{position:fixed;top:0;left:0;right:0;height:36px;background:#080808;border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;z-index:700;display:flex;align-items:center}
+    .banner-track{display:flex;align-items:center;white-space:nowrap;animation:slide 20s linear infinite;flex-shrink:0}
+    .bw{font-family:var(--gothic);font-size:1.05rem;color:rgba(226,226,226,.7);letter-spacing:.06em;padding:0 2rem;flex-shrink:0}
+    .bd{color:rgba(255,255,255,.18);font-size:.35rem;flex-shrink:0}
+
+    /* NAV */
+    nav{position:fixed;top:36px;left:0;right:0;z-index:600;display:flex;justify-content:space-between;align-items:center;padding:.85rem 2.5rem;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(5,5,5,.95);backdrop-filter:blur(12px)}
+    .nav-logo{font-family:var(--gothic);font-size:1.35rem;color:var(--wh);text-decoration:none}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{font-family:var(--sans);font-size:.56rem;font-weight:300;letter-spacing:.38em;text-transform:uppercase;color:var(--lt);text-decoration:none;transition:color .2s}
+    .nav-links a:hover{color:var(--wh)}
+    .nav-right{display:flex;align-items:center;gap:1.5rem}
+    .nav-ig{font-family:var(--mono);font-size:.5rem;color:var(--mid);letter-spacing:.12em;text-decoration:none;transition:color .2s}
+    .nav-ig:hover{color:var(--wh)}
+    .nav-ig::before{content:'↗ '}
+
+    /* 3 DOTS */
+    .dots-btn{background:none;border:none;cursor:none;display:flex;flex-direction:column;gap:4px;padding:4px;opacity:.6;transition:opacity .2s}
+    .dots-btn:hover{opacity:1}
+    .dots-btn span{width:4px;height:4px;background:var(--wh);border-radius:50%;display:block}
+
+    .archive-menu{position:fixed;top:82px;right:2.5rem;background:#0d0d0d;border:1px solid rgba(255,255,255,.08);z-index:800;min-width:260px;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+    .archive-menu.open{display:flex}
+    .am-title{font-family:var(--sans);font-size:.46rem;font-weight:300;letter-spacing:.42em;text-transform:uppercase;color:var(--mid);padding:.85rem 1.2rem .6rem;border-bottom:1px solid rgba(255,255,255,.05)}
+    .archive-menu a{font-family:var(--mono);font-size:.63rem;color:var(--lt);text-decoration:none;padding:.72rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:.8rem;transition:color .2s,background .2s;letter-spacing:.04em}
+    .archive-menu a:last-child{border-bottom:none}
+    .archive-menu a:hover{color:var(--wh);background:rgba(255,255,255,.03)}
+    .am-dot{width:4px;height:4px;border-radius:50%;background:var(--gray);flex-shrink:0;transition:background .2s}
+    .archive-menu a:hover .am-dot{background:var(--wh)}
+
+    /* HERO */
+    .hero{min-height:100vh;padding-top:100px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+    .hero-glyph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0;font-family:var(--gothic);font-size:42vw;color:rgba(255,255,255,.012);user-select:none;line-height:1}
+    .hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 3rem 4rem 2.5rem;position:relative;z-index:2}
+    .hero-tag{font-family:var(--sans);font-size:.5rem;font-weight:300;letter-spacing:.45em;text-transform:uppercase;color:var(--lt);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem}
+    .hero-tag::before{content:'';width:20px;height:1px;background:var(--gray);display:block}
+    .hero-title{font-family:var(--gothic);font-size:clamp(3rem,6.5vw,6rem);line-height:.95;margin-bottom:1rem;opacity:0;animation:rise .9s ease forwards .2s}
+    .hero-sub{font-family:var(--sans);font-size:clamp(.75rem,1.4vw,1.05rem);font-weight:200;letter-spacing:.38em;text-transform:uppercase;color:var(--lt);margin-bottom:1.8rem;opacity:0;animation:rise .9s ease forwards .4s}
+    .hero-desc{font-family:var(--mono);font-style:italic;font-size:.65rem;color:var(--lt);line-height:1.9;margin-bottom:2rem;max-width:320px;opacity:0;animation:rise .9s ease forwards .6s}
+    .hero-meta{display:flex;gap:2rem;align-items:center;margin-bottom:2.2rem;opacity:0;animation:rise .9s ease forwards .7s}
+    .hm-val{font-family:var(--sans);font-size:.65rem;font-weight:300;letter-spacing:.2em;color:var(--wh)}
+    .hm-label{font-family:var(--mono);font-size:.42rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}
+    .hm-div{width:1px;height:28px;background:var(--gray)}
+    .hero-ctas{display:flex;gap:1.4rem;align-items:center;opacity:0;animation:rise .9s ease forwards .85s}
+    .btn-main{font-family:var(--sans);font-size:.56rem;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--bk);background:var(--wh);padding:.8rem 1.8rem;text-decoration:none;transition:background .2s,transform .15s}
+    .btn-main:hover{background:#b0b0b0;transform:translateY(-1px)}
+    .btn-line{font-family:var(--sans);font-size:.56rem;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:var(--lt);text-decoration:none;border-bottom:1px solid var(--gray);padding-bottom:2px;transition:color .2s,border-color .2s}
+    .btn-line:hover{color:var(--wh);border-color:var(--wh)}
+    .hero-right{position:relative;overflow:hidden;z-index:2}
+    .hero-right img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:contrast(1.04) brightness(.9);opacity:0;animation:fadein 1.2s ease forwards .3s}
+    .hero-ref{position:absolute;bottom:1.8rem;left:1.5rem;font-family:var(--mono);font-size:.44rem;color:rgba(255,255,255,.3);letter-spacing:.22em;text-transform:uppercase;writing-mode:vertical-rl}
+    .hero-ctr{position:absolute;top:1.5rem;right:1.5rem;font-family:var(--mono);font-size:.44rem;color:var(--gray);letter-spacing:.15em;text-align:right;line-height:1.7;z-index:3}
+
+    /* TICKER */
+    .ticker{overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:.8rem 0;background:#0b0b0b}
+    .ticker-track{display:flex;white-space:nowrap;animation:slide 28s linear infinite}
+    .ti{font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lt);flex-shrink:0;display:flex;align-items:center;gap:3rem;padding:0 3rem}
+    .ts{color:var(--gray);font-size:.36rem}
+
+    /* SECTION HEADER */
+    .sec-hd{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:1.2rem;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:2.5rem}
+    .sec-title{font-family:var(--gothic);font-size:2.3rem;letter-spacing:.02em}
+    .sec-sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.22em;color:var(--mid);text-transform:uppercase}
+
+    /* SHOP */
+    .shop{padding:5rem 2.5rem;border-top:1px solid rgba(255,255,255,.06)}
+    .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+    .shop-card{background:#0a0a0a;border:1px solid rgba(255,255,255,.04);overflow:hidden;cursor:none;transition:border-color .3s}
+    .shop-card:hover{border-color:rgba(255,255,255,.11)}
+    .card-img{width:100%;aspect-ratio:1/1;overflow:hidden;position:relative;background:#0d0d0d;display:flex;align-items:center;justify-content:center}
+    .card-img img{width:100%;height:100%;object-fit:contain;object-position:center;padding:1rem;display:block;filter:grayscale(8%) contrast(1.05);transition:transform .6s cubic-bezier(.25,.46,.45,.94),filter .4s}
+    .shop-card:hover .card-img img{transform:scale(1.04);filter:grayscale(0%) contrast(1.07)}
+    .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.92) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1.2rem}
+    .shop-card:hover .card-overlay{opacity:1}
+    .card-cta{font-family:var(--sans);font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--wh);border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
+    .card-badge{position:absolute;top:.8rem;left:.8rem;font-family:var(--mono);font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--wh);background:rgba(12,12,12,.9);border:1px solid rgba(255,255,255,.09);padding:.2rem .55rem;backdrop-filter:blur(6px)}
+    .card-info{padding:.9rem 1rem 1rem;border-bottom:1px solid rgba(255,255,255,.04)}
+    .card-ref{font-family:var(--mono);font-size:.45rem;color:var(--mid);letter-spacing:.15em;margin-bottom:.25rem}
+    .card-name{font-family:var(--sans);font-size:.82rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+    .card-avail{font-family:var(--mono);font-size:.52rem;color:var(--lt)}
+
+    /* ARCHIVE SECTIONS */
+    .archive-sec{padding:5rem 2.5rem;border-top:1px solid rgba(255,255,255,.06)}
+    .archive-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+    .archive-grid.col3{grid-template-columns:repeat(3,1fr)}
+
+    .arc-card{background:#080808;border:1px solid rgba(255,255,255,.04);overflow:hidden;cursor:none;transition:border-color .3s;position:relative}
+    .arc-card:hover{border-color:rgba(255,255,255,.1)}
+    .arc-img{width:100%;aspect-ratio:1/1;overflow:hidden;position:relative;background:#0a0a0a;display:flex;align-items:center;justify-content:center}
+    .arc-img img{width:100%;height:100%;object-fit:contain;object-position:center;padding:1.2rem;display:block;filter:grayscale(15%) contrast(1.04);transition:transform .5s ease,filter .4s}
+    .arc-card:hover .arc-img img{transform:scale(1.03);filter:grayscale(0%)}
+    .arc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.9) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1rem}
+    .arc-card:hover .arc-overlay{opacity:1}
+    .arc-cta{font-family:var(--sans);font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:var(--wh);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:2px}
+    .arc-brand-tag{position:absolute;top:.7rem;left:.7rem;font-family:var(--mono);font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--wh);background:rgba(10,10,10,.9);border:1px solid rgba(255,255,255,.08);padding:.18rem .5rem;backdrop-filter:blur(4px)}
+    .arc-info{padding:.8rem .9rem .9rem;border-bottom:1px solid rgba(255,255,255,.04)}
+    .arc-brand{font-family:var(--mono);font-size:.42rem;color:var(--mid);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.2rem}
+    .arc-name{font-family:var(--sans);font-size:.78rem;font-weight:300;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.18rem}
+    .arc-detail{font-family:var(--mono);font-size:.48rem;color:var(--lt)}
+    .arc-ph{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-family:var(--gothic);font-size:3rem;color:rgba(255,255,255,.04);background:#080808}
+
+    /* MARQUEE */
+    .gmarquee{overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:.6rem 0;background:#060606}
+    .gm-track{display:flex;white-space:nowrap;animation:slide 30s linear infinite}
+    .gm-item{font-family:var(--gothic);font-size:3rem;color:rgba(255,255,255,.05);padding:0 2.5rem;flex-shrink:0}
+    .gm-item.hi{color:rgba(255,255,255,.14)}
+
+    /* WORLDWIDE */
+    .worldwide{padding:2.5rem 2.5rem;background:#070707;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;gap:2rem}
+    .ww-left{display:flex;align-items:center;gap:1.5rem}
+    .ww-dot{width:7px;height:7px;background:var(--wh);border-radius:50%;animation:pulse 2s ease infinite}
+    .ww-label{font-family:var(--sans);font-size:.52rem;font-weight:300;letter-spacing:.4em;text-transform:uppercase;color:var(--lt)}
+    .ww-cities{font-family:var(--mono);font-size:.5rem;color:var(--mid);letter-spacing:.12em}
+    .ww-text{font-family:var(--gothic);font-size:1.4rem;color:rgba(255,255,255,.5)}
+
+    /* INSTAGRAM */
+    .ig-section{padding:5rem 2.5rem;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;gap:4rem}
+    .ig-eyebrow{font-family:var(--sans);font-size:.5rem;font-weight:300;letter-spacing:.45em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem}
+    .ig-handle{font-family:var(--gothic);font-size:clamp(2rem,4vw,3.8rem);line-height:1;margin-bottom:.8rem}
+    .ig-desc{font-family:var(--mono);font-size:.62rem;color:var(--lt);font-style:italic;margin-bottom:2rem}
+    .ig-btn{display:inline-flex;align-items:center;gap:.8rem;font-family:var(--sans);font-size:.56rem;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--bk);background:var(--wh);padding:.85rem 2rem;text-decoration:none;transition:background .2s,transform .15s}
+    .ig-btn:hover{background:#b0b0b0;transform:translateY(-1px)}
+    .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;flex:0 0 320px}
+    .ig-tile{aspect-ratio:1;overflow:hidden;background:#0d0d0d;display:flex;align-items:center;justify-content:center}
+    .ig-tile img{width:100%;height:100%;object-fit:contain;padding:.5rem;display:block;filter:grayscale(15%);transition:filter .3s,transform .4s}
+    .ig-tile:hover img{filter:grayscale(0%);transform:scale(1.04)}
+    .ig-ph{font-family:var(--gothic);font-size:1.8rem;color:rgba(255,255,255,.05)}
+
+    /* NEWSLETTER */
+    .nl{padding:7rem 2.5rem;text-align:center;position:relative;overflow:hidden;background:#060606;border-top:1px solid rgba(255,255,255,.05)}
+    .nl::before{content:'F';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--gothic);font-size:40vw;color:rgba(255,255,255,.011);pointer-events:none;line-height:1}
+    .nl-label{font-family:var(--sans);font-size:.5rem;font-weight:300;letter-spacing:.5em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem}
+    .nl-heading{font-family:var(--gothic);font-size:clamp(2.4rem,4.5vw,4.5rem);margin-bottom:.5rem}
+    .nl-sub{font-family:var(--mono);font-style:italic;font-size:.6rem;color:var(--lt);margin-bottom:2.8rem}
+    .nl-form{display:flex;max-width:380px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,.15)}
+    .nl-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:.65rem;color:var(--wh);padding:.75rem 0;letter-spacing:.1em}
+    .nl-input::placeholder{color:var(--mid)}
+    .nl-btn{background:transparent;border:none;cursor:none;font-family:var(--sans);font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--wh);padding:0 0 0 1rem;transition:color .2s}
+
+    /* FOOTER */
+    footer{background:#020202;padding:4rem 2.5rem 1.5rem}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.05)}
+    .f-logo{font-family:var(--gothic);font-size:2.2rem;margin-bottom:.4rem}
+    .f-sub{font-family:var(--sans);font-size:.46rem;font-weight:300;letter-spacing:.32em;text-transform:uppercase;color:var(--mid);margin-bottom:1.2rem}
+    .f-desc{font-family:var(--mono);font-size:.56rem;line-height:1.95;color:var(--mid);font-style:italic;max-width:210px}
+    .f-ww{font-family:var(--sans);font-size:.44rem;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);margin-top:1rem}
+    .f-col-title{font-family:var(--sans);font-size:.46rem;font-weight:400;letter-spacing:.42em;text-transform:uppercase;color:var(--lt);margin-bottom:1.4rem}
+    .f-links{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+    .f-links a{font-family:var(--mono);font-size:.6rem;color:var(--mid);text-decoration:none;letter-spacing:.06em;transition:color .2s}
+    .f-links a:hover{color:var(--wh)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.46rem;color:#1e1e1e;letter-spacing:.15em}
+
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .75s ease,transform .75s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadein{from{opacity:0}to{opacity:1}}
+    @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+    @media(max-width:860px){
+      .hero{grid-template-columns:1fr}.hero-right{height:60vw}
+      .shop-grid,.archive-grid,.archive-grid.col3{grid-template-columns:1fr 1fr}
+      .ig-section{flex-direction:column;align-items:flex-start}
+      .ig-grid{flex:none;width:100%}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .nav-links{display:none}
+      .worldwide{flex-direction:column;align-items:flex-start;gap:1rem}
+    }
+  </style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- ARCHIVE DROPDOWN -->
+<div class="archive-menu" id="archiveMenu">
+  <p class="am-title">// Archives</p>
+  <a href="#tienda"><span class="am-dot"></span>Tienda — Drops disponibles</a>
+  <a href="#proximos"><span class="am-dot"></span>Próximos Drops — Unreleased</a>
+  <a href="#archive-defarmafia"><span class="am-dot"></span>defarmafia Archive</a>
+  <a href="#archive-colabs"><span class="am-dot"></span>Colabs &amp; Friends Archive</a>
+  <a href="#archive-otras"><span class="am-dot"></span>Otras Marcas Archive</a>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-track">
+    <span class="bw">defarmafia</span><span class="bd">✦</span>
+    <span class="bw">\bendecid2s/</span><span class="bd">✦</span>
+    <span class="bw">Archive</span><span class="bd">✦</span>
+    <span class="bw">SS26</span><span class="bd">✦</span>
+    <span class="bw">We Have Always Been</span><span class="bd">✦</span>
+    <span class="bw">Worldwide</span><span class="bd">✦</span>
+    <span class="bw">defarmafia</span><span class="bd">✦</span>
+    <span class="bw">\bendecid2s/</span><span class="bd">✦</span>
+    <span class="bw">Archive</span><span class="bd">✦</span>
+    <span class="bw">SS26</span><span class="bd">✦</span>
+    <span class="bw">We Have Always Been</span><span class="bd">✦</span>
+    <span class="bw">Worldwide</span><span class="bd">✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">defarmafia</a>
+  <ul class="nav-links">
+    <li><a href="#tienda">Tienda</a></li>
+    <li><a href="#archive-defarmafia">Archive</a></li>
+    <li><a href="#ig">Instagram</a></li>
+    <li><a href="#nl">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://instagram.com/defarmafia" target="_blank" class="nav-ig">@defarmafia</a>
+    <button class="dots-btn" id="dotsBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glyph">F</div>
+  <div class="hero-left">
+    <p class="hero-tag">defarmafia · Archive SS26</p>
+    <h1 class="hero-title">\bendecid2s/</h1>
+    <p class="hero-sub">We have always been.</p>
+    <p class="hero-desc">"Archivando lo que nunca debió desaparecer.<br>Ropa hecha desde la fe, construida para los que ya saben."</p>
+    <div class="hero-meta">
+      <div><div class="hm-val">2023</div><div class="hm-label">Founded</div></div>
+      <div class="hm-div"></div>
+      <div><div class="hm-val">Worldwide</div><div class="hm-label">Based</div></div>
+      <div class="hm-div"></div>
+      <div><div class="hm-val">Ltd.</div><div class="hm-label">Edition</div></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#tienda" class="btn-main">Ver Tienda</a>
+      <a href="#archive-otras" class="btn-line">Archive →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">We Have Always Been</div>
+    <span class="hero-ref">REF. WHA-001 — Hoodie / Black</span>
+    <div class="hero-ctr">SS26 / Drop 001<br>Edición Limitada</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ti">defarmafia <span class="ts">✦</span> we have always been <span class="ts">✦</span> \bendecid2s/ <span class="ts">✦</span> archive SS26 <span class="ts">✦</span> vitamin fé <span class="ts">✦</span> worldwide <span class="ts">✦</span> edición limitada <span class="ts">✦</span> @defarmafia <span class="ts">✦</span> defarmafia <span class="ts">✦</span> we have always been <span class="ts">✦</span> \bendecid2s/ <span class="ts">✦</span> archive SS26 <span class="ts">✦</span> vitamin fé <span class="ts">✦</span> worldwide <span class="ts">✦</span> edición limitada <span class="ts">✦</span> @defarmafia <span class="ts">✦</span></div>
+  </div>
+</div>
+
+<!-- ═══ TIENDA ═══ -->
+<section class="shop" id="tienda">
+  <div class="sec-hd reveal">
+    <h2 class="sec-title">Tienda</h2>
+    <span class="sec-sub">Drops disponibles · SS26</span>
+  </div>
+  <div class="shop-grid">
+    <div class="shop-card reveal">
+      <div class="card-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">We Have Always Been Hoodie</div>
+        <span class="card-badge">Disponible</span>
+        <div class="card-overlay"><span class="card-cta">Ver pieza →</span></div>
+      </div>
+      <div class="card-info">
+        <p class="card-ref">REF. 001 · defarmafia · SS26</p>
+        <p class="card-name">We Have Always Been — Hoodie</p>
+        <p class="card-avail">Edición limitada · Disponible</p>
+      </div>
+    </div>
+    <div class="shop-card reveal">
+      <div class="card-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Vitamin Fé Hoodie</div>
+        <span class="card-badge">Disponible</span>
+        <div class="card-overlay"><span class="card-cta">Ver pieza →</span></div>
+      </div>
+      <div class="card-info">
+        <p class="card-ref">REF. 002 · defarmafia · SS26</p>
+        <p class="card-name">Vitamin Fé — Hoodie</p>
+        <p class="card-avail">Edición limitada · Disponible</p>
+      </div>
+    </div>
+    <div class="shop-card reveal">
+      <div class="card-img"><div class="arc-ph">\F/</div>
+        <span class="card-badge" style="color:#444;border-color:rgba(255,255,255,.05)">Próximo</span>
+        <div class="card-overlay"><span class="card-cta">Notificarme →</span></div>
+      </div>
+      <div class="card-info">
+        <p class="card-ref">REF. 003 · defarmafia · SS26</p>
+        <p class="card-name">Drop 003 — Por Revelar</p>
+        <p class="card-avail" style="color:#444">Próximamente</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="gmarquee">
+  <div class="gm-track">
+    <span class="gm-item">defarmafia</span><span class="gm-item hi">\bendecid2s/</span>
+    <span class="gm-item">Archive</span><span class="gm-item hi">We Have Always Been.</span>
+    <span class="gm-item">Worldwide</span><span class="gm-item hi">SS26</span>
+    <span class="gm-item">defarmafia</span><span class="gm-item hi">\bendecid2s/</span>
+    <span class="gm-item">Archive</span><span class="gm-item hi">We Have Always Been.</span>
+    <span class="gm-item">Worldwide</span><span class="gm-item hi">SS26</span>
+  </div>
+</div>
+
+<!-- WORLDWIDE -->
+<div class="worldwide">
+  <div class="ww-left">
+    <div class="ww-dot"></div>
+    <span class="ww-label">Based &amp; operating</span>
+    <span class="ww-cities">Ciudad de México · Los Angeles · Madrid · Tokyo · Worldwide</span>
+  </div>
+  <span class="ww-text">Worldwide</span>
+</div>
+
+<!-- ═══ PRÓXIMOS DROPS ═══ -->
+<section class="archive-sec" id="proximos">
+  <div class="sec-hd reveal">
+    <h2 class="sec-title">Próximos Drops</h2>
+    <span class="sec-sub">Unreleased · Nunca sacadas · SS26</span>
+  </div>
+  <div class="archive-grid col3">
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">defarmafia · Unreleased</p>
+        <p class="arc-name">Drop 003 — Sin Título</p>
+        <p class="arc-detail">Por revelar · SS26</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">defarmafia · Unreleased</p>
+        <p class="arc-name">Próxima Pieza</p>
+        <p class="arc-detail">Por revelar · SS26</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">defarmafia · Unreleased</p>
+        <p class="arc-name">Próxima Pieza</p>
+        <p class="arc-detail">Por revelar · SS26</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DEFARMAFIA ARCHIVE ═══ -->
+<section class="archive-sec" id="archive-defarmafia">
+  <div class="sec-hd reveal">
+    <h2 class="sec-title">defarmafia Archive</h2>
+    <span class="sec-sub">Piezas propias · 2023 — 2026</span>
+  </div>
+  <div class="archive-grid">
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">We Have Always Been</div>
+        <span class="arc-brand-tag">defarmafia</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">defarmafia · SS26</p>
+        <p class="arc-name">We Have Always Been — Hoodie</p>
+        <p class="arc-detail">Black · Drop 001</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Vitamin Fé</div>
+        <span class="arc-brand-tag">defarmafia</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">defarmafia · SS26</p>
+        <p class="arc-name">Vitamin Fé — Hoodie</p>
+        <p class="arc-detail">Black · Drop 002</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">defarmafia · AW23</p>
+        <p class="arc-name">Pieza Fundacional</p>
+        <p class="arc-detail">Primer drop · Archive</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">defarmafia · AW23</p>
+        <p class="arc-name">Pieza Fundacional II</p>
+        <p class="arc-detail">Primer drop · Archive</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COLABS & FRIENDS ═══ -->
+<section class="archive-sec" id="archive-colabs">
+  <div class="sec-hd reveal">
+    <h2 class="sec-title">Colabs &amp; Friends</h2>
+    <span class="sec-sub">Colaboraciones · Archive</span>
+  </div>
+  <div class="archive-grid">
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">Colab · Por anunciar</p>
+        <p class="arc-name">Próxima Colaboración</p>
+        <p class="arc-detail">Por revelar</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">Colab · Por anunciar</p>
+        <p class="arc-name">Próxima Colaboración</p>
+        <p class="arc-detail">Por revelar</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">Colab · Por anunciar</p>
+        <p class="arc-name">Próxima Colaboración</p>
+        <p class="arc-detail">Por revelar</p>
+      </div>
+    </div>
+    <div class="arc-card reveal">
+      <div class="arc-img"><div class="arc-ph">\F/</div></div>
+      <div class="arc-info">
+        <p class="arc-brand">Colab · Por anunciar</p>
+        <p class="arc-name">Próxima Colaboración</p>
+        <p class="arc-detail">Por revelar</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OTRAS MARCAS ARCHIVE ═══ -->
+<!-- ALL 7 images you sent go here -->
+<section class="archive-sec" id="archive-otras">
+  <div class="sec-hd reveal">
+    <h2 class="sec-title">Otras Marcas</h2>
+    <span class="sec-sub">Piezas archivadas · Referencia &amp; Colección</span>
+  </div>
+  <div class="archive-grid">
+
+    <!-- 1. Scares Studio zip hoodie -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Scares Studio Hoodie</div>
+        <span class="arc-brand-tag">Scares Studio</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Scares Studio</p>
+        <p class="arc-name">I Need A Lil Vamp Baby — Zip Hoodie</p>
+        <p class="arc-detail">Black · Tribal print · Double-zip sleeves</p>
+      </div>
+    </div>
+
+    <!-- 2. Jeans full (front + back) -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Jeans Red Stitch Full</div>
+        <span class="arc-brand-tag">Archive</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Otra Marca · Archive</p>
+        <p class="arc-name">Jeans — Red Stitch Flare</p>
+        <p class="arc-detail">Black denim · Red stitching · Embroidery · Frayed hem</p>
+      </div>
+    </div>
+
+    <!-- 3. Jeans back detail -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Jeans Red Stitch Back</div>
+        <span class="arc-brand-tag">Archive</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Otra Marca · Archive</p>
+        <p class="arc-name">Jeans — Detalle Espalda</p>
+        <p class="arc-detail">Embroidery back pocket · Destroyed detail</p>
+      </div>
+    </div>
+
+    <!-- 4. Jeans front detail -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Jeans Red Stitch Front</div>
+        <span class="arc-brand-tag">Archive</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Otra Marca · Archive</p>
+        <p class="arc-name">Jeans — Detalle Frente</p>
+        <p class="arc-detail">Multi-pocket · Zip detail · Embroidery logo</p>
+      </div>
+    </div>
+
+    <!-- 5. Atipical washed zip hoodie -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Atipical Zip Hoodie</div>
+        <span class="arc-brand-tag">Atipical</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Atipical · Archive</p>
+        <p class="arc-name">Zip Hoodie — Washed Black</p>
+        <p class="arc-detail">Washed black · Gothic logo · Distressed hem</p>
+      </div>
+    </div>
+
+    <!-- 6. Im Not Your Ex black tee -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Im Not Your Ex Black</div>
+        <span class="arc-brand-tag">Archive</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Archive · SS25</p>
+        <p class="arc-name">I'm Not Your Ex — Tee Black</p>
+        <p class="arc-detail">Black · Bubble print · Patch detail</p>
+      </div>
+    </div>
+
+    <!-- 7. Searching 4 Connection hoodie -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;">Searching 4 Connection</div>
+        <span class="arc-brand-tag">Archive</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Archive · Colección</p>
+        <p class="arc-name">Searching 4 Connection — Zip Hoodie</p>
+        <p class="arc-detail">Black · Embroidered text · Made in USA</p>
+      </div>
+    </div>
+
+    <!-- 8. Number (N)ine Bondage Parka — photo needed -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div class="arc-ph" style="font-size:1.6rem;letter-spacing:.05em">N9</div>
+        <span class="arc-brand-tag">Number (N)ine</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Number (N)ine · Takahiro Miyashita</p>
+        <p class="arc-name">Bondage Glovo Parka</p>
+        <p class="arc-detail">Black · Multi-zip · Archive piece · Tokyo/NY</p>
+      </div>
+    </div>
+
+    <!-- 9. Guapi x NBA camo cargo — photo needed -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div class="arc-ph" style="font-size:1.2rem;letter-spacing:.05em">NBA</div>
+        <span class="arc-brand-tag">Guapi × NBA</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Guapi x @neverbrokeagainllc</p>
+        <p class="arc-name">Camo Cargo Pants</p>
+        <p class="arc-detail">Realtree camo · Chain hardware · Multi-pocket</p>
+      </div>
+    </div>
+
+    <!-- 10. Guapi x NBA camo hoodie — photo needed -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div class="arc-ph" style="font-size:1.2rem;letter-spacing:.05em">NBA</div>
+        <span class="arc-brand-tag">Guapi × NBA</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Guapi x @neverbrokeagainllc</p>
+        <p class="arc-name">Camo Zip Hoodie</p>
+        <p class="arc-detail">Realtree camo · Cross graphic · Harness buckles</p>
+      </div>
+    </div>
+
+    <!-- 11. Never hoodie worn — photo needed -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div class="arc-ph">\F/</div>
+        <span class="arc-brand-tag">Archive</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Archive · Colección</p>
+        <p class="arc-name">Never Enough — Hoodie</p>
+        <p class="arc-detail">Black · Cartoon graphic · Embroidery</p>
+      </div>
+    </div>
+
+    <!-- 12. Im Not Your Ex white — photo needed -->
+    <div class="arc-card reveal">
+      <div class="arc-img">
+        <div class="arc-ph">\F/</div>
+        <span class="arc-brand-tag">Archive</span>
+        <div class="arc-overlay"><span class="arc-cta">Ver archivo →</span></div>
+      </div>
+      <div class="arc-info">
+        <p class="arc-brand">Archive · SS25</p>
+        <p class="arc-name">I'm Not Your Ex — Tee White</p>
+        <p class="arc-detail">Cream · Bubble print · Patch detail</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="ig-section" id="ig">
+  <div class="reveal">
+    <p class="ig-eyebrow">// Síguenos</p>
+    <h2 class="ig-handle">@defarmafia</h2>
+    <p class="ig-desc">Drops, archive, behind the scenes — todo en Instagram.</p>
+    <a href="https://instagram.com/defarmafia" target="_blank" class="ig-btn">↗ Abrir Instagram</a>
+  </div>
+  <div class="ig-grid reveal">
+    <div class="ig-tile"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;"></div></div>
+    <div class="ig-tile"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;"></div></div>
+    <div class="ig-tile"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;"></div></div>
+    <div class="ig-tile"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;"></div></div>
+    <div class="ig-tile"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;"></div></div>
+    <div class="ig-tile"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0d0d0d;font-family:'Courier Prime',monospace;font-size:0.5rem;color:#333;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:1rem;"></div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="nl" id="nl">
+  <p class="nl-label">Únete al archive</p>
+  <h2 class="nl-heading">defarmafia</h2>
+  <p class="nl-sub">Primero en enterarte. Siempre limitado. Worldwide.</p>
+  <div class="nl-form">
+    <input type="email" class="nl-input" placeholder="tu@correo.com"/>
+    <button class="nl-btn">Entrar →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="f-logo">defarmafia</div>
+      <div class="f-sub">\bendecid2s/ · Archive</div>
+      <p class="f-desc">"Archivando lo que nunca debió desaparecer."<br>Ropa coleccionable, edición limitada siempre.</p>
+      <p class="f-ww">Based worldwide · Est. 2023</p>
+    </div>
+    <div>
+      <p class="f-col-title">Archives</p>
+      <ul class="f-links">
+        <li><a href="#tienda">Tienda — Drops</a></li>
+        <li><a href="#proximos">Próximos Drops</a></li>
+        <li><a href="#archive-defarmafia">defarmafia Archive</a></li>
+        <li><a href="#archive-colabs">Colabs &amp; Friends</a></li>
+        <li><a href="#archive-otras">Otras Marcas</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="f-col-title">Contacto</p>
+      <ul class="f-links">
+        <li><a href="https://instagram.com/defarmafia" target="_blank">Instagram</a></li>
+        <li><a href="https://instagram.com/defarmafia" target="_blank">@defarmafia</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="f-col-title">Info</p>
+      <ul class="f-links">
+        <li><a href="#">Sobre defarmafia</a></li>
+        <li><a href="#">Edición limitada</a></li>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 defarmafia — \bendecid2s/ · Todos los derechos reservados</span>
+    <span>we have always been. · worldwide</span>
+  </div>
+</footer>
+
+<script>
+  const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button,.shop-card,.arc-card,.ig-tile').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='44px';ring.style.height='44px'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='7px';cur.style.height='7px';ring.style.width='26px';ring.style.height='26px'});
+  });
+  const dotsBtn=document.getElementById('dotsBtn'),menu=document.getElementById('archiveMenu');
+  dotsBtn.addEventListener('click',e=>{e.stopPropagation();menu.classList.toggle('open')});
+  document.addEventListener('click',()=>menu.classList.remove('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*65)});
+  },{threshold:.07});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
